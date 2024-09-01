@@ -1,5 +1,4 @@
 export const Styles = {
-    // import { makeStyles } from '@material-ui/core/styles';
 
       media: {
         height: 0,

@@ -3,21 +3,21 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Styled} from '@mui/material'
+import {styled} from '@mui/system'
 import { Styles } from './styles'
 import moment from 'moment'
 
 function Post({post}) {
   // const StyledBar =  styled(AppBar)(()=> (Styles.appBar))
-  const StyledCard = Styled(Card)(()=> Styles.card)
-  const StyledTypography= Styled(Typography)(()=> Styles.title)
-  const StyledCardActions= Styled(CardActions)(()=> Styles.title)
-  const StyledCardMedia = Styled(CardMedia)(()=> Styles.media)
+  const StyledCard = styled(Card)(()=> Styles.card)
+  const StyledTypography= styled(Typography)(()=> Styles.title)
+  const StyledCardActions= styled(CardActions)(()=> Styles.cardActions)
+  const StyledCardMedia = styled(CardMedia)(()=> Styles.media)
   // const styledButton = Styled(Button)(()=> Styles.media)
   return (
    <StyledCard>
-      <StyledCardMedia image= {Post.selectedFile}
-      title={post.title}>
+      <StyledCardMedia image= {post.selectedFile}
+      title={post.title}/>
         <div className={Styles.overlay}>
           <Typography variant='h6'>
               {post.creator}
@@ -33,7 +33,7 @@ function Post({post}) {
         </div>
         <div className={Styles.details}>
            <Typography variant='body2' color='textSecondary'>
-              {post.tags.maps(tag=>`#${tag} `)}
+              {post.tags.map(tag=>`#${tag} `)}
           </Typography>
         </div>
         <CardContent>
@@ -52,7 +52,6 @@ function Post({post}) {
               Delete
             </Button>
         </StyledCardActions>
-      </StyledCardMedia>
    </StyledCard>
   )
 }
