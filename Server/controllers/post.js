@@ -10,12 +10,15 @@ export const getPosts = async (req, res)=>{
 
 }
 export const createPost = async (req, res)=>{
-    const post = req.body;
-
+    // const data = req.body;
+    const { title, message,creator, tags , selectedFile} = req.body;
+// const transaction = await TransactionModel.create({name, description, date} )
     // newPost is an object created from the postMessage model, and it represents a single document that will be saved to the MongoDB collection defined by the postMessage model.
-    const newPost = new postMessage(post);
+    // console.log(data)
+    // const newPost = new postMessage(data);
     try {
-        await newPost.save();
+        // await newPost.save();
+        const newPost = await postMessage.create({title, message,creator, tags , selectedFile} )
         res.status(201).json(newPost);
     } catch (error) {
         res.status(404).json({msg : error.message})

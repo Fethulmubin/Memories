@@ -6,12 +6,15 @@ import post_routes from './routes/posts.js' //we should add .js when we importin
 
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json())
+app.use(express.json({limit : "50mb"}))
 // adding my routes
 app.use('/posts', post_routes);
 
-app.use(bodyParser.json({limit : "30mb", extended : true}))
-app.use(bodyParser.urlencoded({limit : "30mb", extended : true}))
-app.use(cors());
+app.use(bodyParser.json({limit : "50mb", extended : true}))
+app.use(bodyParser.urlencoded({limit : "50mb", extended : true}))
+
 const PORT = process.env.PORT || 5555;
 const CONNECTION_URL = "mongodb+srv://fetihul:AN8BqTMIYsH0V9oa@cluster0.80jdc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 

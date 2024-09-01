@@ -1,34 +1,47 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+// import { Bar } from './styles'
+import { Container, AppBar, Typography, Grow, Grid } from '@mui/material'
+import Posts from './components/Posts/Posts'
+import Form from './components/Form/Form'
+import { styled } from "@mui/system";
+import { Styles } from './styles'
+import memory from './assets/memory.png'
+import { useDispatch } from 'react-redux'
+import { getPost } from './actions/posts'
 
 function App() {
-  const [count, setCount] = useState(0)
+// const classes = styled();
+const StyledBar =  styled(AppBar)(()=> (Styles.appBar))
+const StyledTypography =  styled(Typography)(()=> (Styles.heading))
 
+const dispatch = useDispatch();
+
+useEffect(()=>{
+dispatch(getPost())
+},[dispatch])
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    
+      <Container maxWidth='lg'>
+        <StyledBar  position='static' color='inherit'>
+          <StyledTypography  variant='h2' align='center'>Memories</StyledTypography>
+          <img className={Styles.image} src={memory} alt="memories" height='100' />
+        </StyledBar>
+        <Grow in>
+          <Container>
+            <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
+              <Grid item xs={12} sm={7}>
+                <Posts />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Form />
+              </Grid>
+            </Grid>
+          </Container>
+        </Grow>
+      </Container>
+
   )
 }
 
