@@ -20,12 +20,12 @@ function Post({post, setCurrentId}) {
       <StyledCardMedia image= {post.selectedFile}
       title={post.title}/>
         <div className={Styles.overlay}>
-          <Typography variant='h6'>
+          <StyledTypography variant='h6'>
               {post.creator}
-          </Typography>
-          <Typography variant='body2'>
+          </StyledTypography>
+          <StyledTypography variant='body2'>
               {moment(post.createdAt).fromNow()}
-          </Typography>
+          </StyledTypography>
         </div>
         <div className={Styles.overlay2}>
           <Button style={{color : 'blue'}} size = 'small' onClick={()=> 
@@ -34,9 +34,9 @@ function Post({post, setCurrentId}) {
           </Button>
         </div>
         <div className={Styles.details}>
-           <Typography variant='body2' color='textSecondary'>
+           <StyledTypography variant='body2' color='textSecondary'>
               {post.tags.map(tag=>`#${tag} `)}
-          </Typography>
+          </StyledTypography>
         </div>
         <CardContent>
            <StyledTypography variant='h5' gutterBottom>

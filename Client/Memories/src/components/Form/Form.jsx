@@ -9,6 +9,7 @@ import { createPost, updatePost } from "../../actions/posts";
   //my styled components
   const StyledPaper = styled(Paper)(() => Styles.paper);
   const StyledButton = styled(Button)(() => Styles.buttonSubmit);
+  const StyledTextField = styled(TextField)(() => Styles.textField);
 
 function Form({currentId, setCurrentId}) {
   const post = useSelector((state)=> currentId? state.posts.find((p)=> p._id === currentId ):null)
@@ -21,7 +22,7 @@ function Form({currentId, setCurrentId}) {
   });
    useEffect(()=>{
     if(post) setPostData(post)
-   },[postData])
+   },[post])
 
   const dispatch = useDispatch();
 
@@ -32,9 +33,16 @@ function Form({currentId, setCurrentId}) {
     }
     else{
     dispatch(createPost(postData));
+    // clear();
     }
   };
-  const clear = () => {};
+  const clear = () => {
+    setPostData({ creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",})
+  };
 
   return (
     <>
@@ -45,8 +53,9 @@ function Form({currentId, setCurrentId}) {
           className={Styles.form}
         >
           <Typography variant="h6">Creating a memory</Typography>
-          <TextField
+          <StyledTextField
             name="creator"
+            label = "Creator eg : abebe"
             variant="outlined"
             fullWidth
             value={postData.creator}
@@ -55,8 +64,9 @@ function Form({currentId, setCurrentId}) {
             }
           />
 
-          <TextField
+          <StyledTextField
             name="title"
+            label = "Title eg: visit Ethiopia"
             variant="outlined"
             fullWidth
             value={postData.title}
@@ -65,8 +75,9 @@ function Form({currentId, setCurrentId}) {
             }
           />
 
-          <TextField
+          <StyledTextField
             name="message"
+            label = "Message"
             variant="outlined"
             fullWidth
             value={postData.message}
@@ -83,7 +94,7 @@ function Form({currentId, setCurrentId}) {
             onChange = {(e) => setPostData({ ...postData, tags: e.target.value })}
           /> */}
 
-<TextField
+          <StyledTextField
             label="tags"
             variant="outlined"
             fullWidth
@@ -106,7 +117,9 @@ function Form({currentId, setCurrentId}) {
             color = "blue"
             size = "large"
             type = "submit"
+            
             fullWidth
+
           >
             Post
           </StyledButton>

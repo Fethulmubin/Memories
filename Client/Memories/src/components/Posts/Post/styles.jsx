@@ -1,5 +1,5 @@
 export const Styles = {
-
+      
       media: {
         height: 0,
         paddingTop: '56.25%',
@@ -25,6 +25,7 @@ export const Styles = {
         top: '20px',
         left: '20px',
         color: 'white',
+        padding : '10px'
       },
       overlay2: {
         position: 'absolute',
