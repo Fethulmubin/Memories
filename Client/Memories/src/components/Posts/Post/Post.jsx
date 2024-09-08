@@ -2,12 +2,13 @@ import React from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {styled} from '@mui/system'
 import { Styles } from './styles'
 import moment from 'moment'
 
-function Post({post}) {
+function Post({post, setCurrentId}) {
   // const StyledBar =  styled(AppBar)(()=> (Styles.appBar))
   const StyledCard = styled(Card)(()=> Styles.card)
   const StyledTypography= styled(Typography)(()=> Styles.title)
@@ -27,8 +28,9 @@ function Post({post}) {
           </Typography>
         </div>
         <div className={Styles.overlay2}>
-          <Button style={{color : 'white'}} size = 'small' onClick={()=> {}} >
-              <MoreHorizIcon fontSize = 'default'/>
+          <Button style={{color : 'blue'}} size = 'small' onClick={()=> 
+            {setCurrentId(post._id)}}>
+              <EditIcon fontSize = 'default'/>
           </Button>
         </div>
         <div className={Styles.details}>

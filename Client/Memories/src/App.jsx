@@ -13,6 +13,7 @@ import { getPost } from './actions/posts'
 
 function App() {
 // const classes = styled();
+const [currentId, setCurrentId] = useState(null)
 const StyledBar =  styled(AppBar)(()=> (Styles.appBar))
 const StyledTypography =  styled(Typography)(()=> (Styles.heading))
 
@@ -32,10 +33,10 @@ dispatch(getPost())
           <Container>
             <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
               <Grid item xs={12} sm={7}>
-                <Posts />
+                <Posts setCurrentId={setCurrentId}/>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Form />
+                <Form currentId = {currentId} setCurrentId={setCurrentId}/>
               </Grid>
             </Grid>
           </Container>

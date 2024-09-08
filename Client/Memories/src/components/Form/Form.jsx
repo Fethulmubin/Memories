@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/system";
 import { Styles } from "./styles";
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import FileBase from 'react-file-base64';
-import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/posts";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost, updatePost } from "../../actions/posts";
 
   //my styled components
   const StyledPaper = styled(Paper)(() => Styles.paper);
   const StyledButton = styled(Button)(() => Styles.buttonSubmit);
 
-function Form() {
+function Form({currentId, setCurrentId}) {
+  const post = useSelector((state)=> currentId? state.posts.find((p)=> p._id === currentId ):null)
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -18,12 +19,20 @@ function Form() {
     tags: "",
     selectedFile: "",
   });
+   useEffect(()=>{
+    if(post) setPostData(post)
+   },[postData])
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(currentId){
+      dispatch(updatePost(currentId, postData));
+    }
+    else{
     dispatch(createPost(postData));
+    }
   };
   const clear = () => {};
 
