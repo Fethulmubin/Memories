@@ -21,18 +21,21 @@ function Post({post, setCurrentId}) {
       title={post.title}/>
         <div className={Styles.overlay}>
           <StyledTypography variant='h6'>
-              {post.creator}
+              {`Posted by ${post.creator}`}
+          </StyledTypography>
+          <StyledTypography variant='body2'>
+              {post.title}
           </StyledTypography>
           <StyledTypography variant='body2'>
               {moment(post.createdAt).fromNow()}
           </StyledTypography>
         </div>
-        <div className={Styles.overlay2}>
+        {/* <div className={Styles.overlay2}>
           <Button style={{color : 'blue'}} size = 'small' onClick={()=> 
             {setCurrentId(post._id)}}>
               <EditIcon fontSize = 'default'/>
           </Button>
-        </div>
+        </div> */}
         <div className={Styles.details}>
            <StyledTypography variant='body2' color='textSecondary'>
               {post.tags.map(tag=>`#${tag} `)}
@@ -44,15 +47,21 @@ function Post({post, setCurrentId}) {
            </StyledTypography>
         </CardContent>
         <StyledCardActions>
-            <Button size='small' color='primary' onClick={()=> {}}>
-              <ThumbUpAltIcon fontSize= 'small'/>
+            <Button size='small' style={{color : '#74a1e8'}} onClick={()=> {}}>
+              <ThumbUpAltIcon style={{color : '#74a1e8'}} fontSize= 'small'/>
               Like
               {post.likeCount}
             </Button>
-            <Button size='small' color='primary' onClick={()=> {}}>
-              <DeleteIcon fontSize= 'small'/>
+            <Button size='small' style={{color : '#e36c27'}} onClick={()=> {}}>
+              <DeleteIcon style={{color : '#e36c27'}} fontSize= 'small'/>
               Delete
             </Button>
+            <div className={Styles.overlay2}>
+          <Button style={{color : 'blue'}} size = 'small' onClick={()=> 
+            {setCurrentId(post._id)}}>
+              <MoreHorizIcon style={{color : '#74a1e8'}} fontSize = 'default'/>
+          </Button>
+           </div>
         </StyledCardActions>
    </StyledCard>
   )

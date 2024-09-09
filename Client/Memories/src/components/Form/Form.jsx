@@ -20,9 +20,18 @@ function Form({currentId, setCurrentId}) {
     tags: "",
     selectedFile: "",
   });
+  const [shouldRerender, setShouldRerender] = useState(false);
    useEffect(()=>{
     if(post) setPostData(post)
+      // dispatch(getPost())
    },[post])
+
+   useEffect(() => {
+    if (shouldRerender) {
+      // Any additional actions to perform on re-render
+      setShouldRerender(false); // Reset the state to avoid infinite loop
+    }
+  }, [shouldRerender]);
 
   const dispatch = useDispatch();
 
@@ -30,10 +39,16 @@ function Form({currentId, setCurrentId}) {
     e.preventDefault();
     if(currentId){
       dispatch(updatePost(currentId, postData));
+      // window.location.reload();
+      setShouldRerender(true)
+      // setPostData(post)
+      clear();
+      
+      
     }
     else{
     dispatch(createPost(postData));
-    // clear();
+    clear();
     }
   };
   const clear = () => {
@@ -42,6 +57,7 @@ function Form({currentId, setCurrentId}) {
       message: "",
       tags: "",
       selectedFile: "",})
+      setCurrentId(null);
   };
 
   return (
