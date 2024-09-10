@@ -6,22 +6,38 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {styled} from '@mui/system'
 import { Styles } from './styles'
+import { useState, useEffect } from 'react';
 import moment from 'moment'
 import { useDispatch } from 'react-redux';
-import  {deletePost}  from '../../../actions/posts';
+import  {deletePost, likePost}  from '../../../actions/posts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+
 function Post({post, setCurrentId, deletePosts}) {
   // const StyledBar =  styled(AppBar)(()=> (Styles.appBar))
-  const notifyUpdate = () => toast("your post updated successfully");
-  const notifyDelete = () => toast("your post deleted successfully");
+  // const notifyUpdate = () => toast("your post updated successfully");
+  // const notifyDelete = () => toast("your post deleted successfully");
+  const [Render, setRender] = useState(false)
   const dispatch = useDispatch();
   const StyledCard = styled(Card)(()=> Styles.card)
   const StyledTypography= styled(Typography)(()=> Styles.title)
   const StyledCardActions= styled(CardActions)(()=> Styles.cardActions)
   const StyledCardMedia = styled(CardMedia)(()=> Styles.media)
   // const styledButton = Styled(Button)(()=> Styles.media)
+  useEffect(() => {
+    if (Render) {
+      // Any additional actions to perform on re-render
+      setRender(false); // Reset the state to avoid infinite loop
+    }
+  }, [Render]);
+
+  const handleSubmit = ()=>{
+    dispatch(likePost(post._id))
+    setRender(!Render)
+    // console.log(Render)
+  }
   return (
    <StyledCard>
       <StyledCardMedia image= {post.selectedFile}
@@ -54,9 +70,11 @@ function Post({post, setCurrentId, deletePosts}) {
            </StyledTypography>
         </CardContent>
         <StyledCardActions>
-            <Button size='small' style={{color : '#74a1e8'}} onClick={()=> {}}>
+            <Button size='small' style={{color : '#74a1e8'}} onClick={()=> {
+              handleSubmit()
+            }}>
               <ThumbUpAltIcon style={{color : '#74a1e8'}} fontSize= 'small'/>
-              Like
+              {`Like `}
               {post.likeCount}
             </Button>
             <Button size='small' style={{color : '#e36c27'}} onClick={()=> 

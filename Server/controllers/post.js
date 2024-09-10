@@ -57,3 +57,16 @@ export const deletePost = async (req, res)=>{
             res.status(500).send("Something went wrong, please check your internet");
         }
 }
+export const likePost = async(req, res)=>{
+    const {id : _id} = req.params;
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send("no post with this id"); 
+    }
+    try {
+        const post = await postMessage.findById(_id)
+        const updatedLike = await postMessage.findByIdAndUpdate(_id, {likeCount : post.likeCount+ 1})
+        res.json(updatedLike)
+    } catch (error) {
+         res.status(500).send("Something went wrong, please check your internet");
+    }
+}
