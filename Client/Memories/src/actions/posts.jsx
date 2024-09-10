@@ -55,3 +55,16 @@ try {
     // const action = {type : 'FETCH_ALL', payload : []}
     // dispatch(action)
 }
+
+export const deletePost = (id) => async(dispatch)=> {
+  
+    try {
+        await api.deletePosts(id)
+        dispatch({type : 'DELETE', payload : id})
+    } catch (error) {
+        console.log(error.message)
+    }
+    
+        // const action = {type : 'FETCH_ALL', payload : []}
+        // dispatch(action)
+    }

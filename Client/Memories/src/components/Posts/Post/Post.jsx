@@ -7,9 +7,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {styled} from '@mui/system'
 import { Styles } from './styles'
 import moment from 'moment'
+import { useDispatch } from 'react-redux';
+import  {deletePost}  from '../../../actions/posts';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Post({post, setCurrentId}) {
+function Post({post, setCurrentId, deletePosts}) {
   // const StyledBar =  styled(AppBar)(()=> (Styles.appBar))
+  const notifyUpdate = () => toast("your post updated successfully");
+  const notifyDelete = () => toast("your post deleted successfully");
+  const dispatch = useDispatch();
   const StyledCard = styled(Card)(()=> Styles.card)
   const StyledTypography= styled(Typography)(()=> Styles.title)
   const StyledCardActions= styled(CardActions)(()=> Styles.cardActions)
@@ -52,10 +59,13 @@ function Post({post, setCurrentId}) {
               Like
               {post.likeCount}
             </Button>
-            <Button size='small' style={{color : '#e36c27'}} onClick={()=> {}}>
+            <Button size='small' style={{color : '#e36c27'}} onClick={()=> 
+              {dispatch(deletePost(post._id))
+              }}>
               <DeleteIcon style={{color : '#e36c27'}} fontSize= 'small'/>
               Delete
             </Button>
+            {/* {deletePosts && <ToastContainer />} */}
             <div className={Styles.overlay2}>
           <Button style={{color : 'blue'}} size = 'small' onClick={()=> 
             {setCurrentId(post._id)}}>

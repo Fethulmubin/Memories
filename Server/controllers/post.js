@@ -34,9 +34,26 @@ return res.status(404).send("no post with this id")
 }
 try {
      const updatedPost = await postMessage.findByIdAndUpdate(_id, post)
-    res.json(updatedPost)
+     res.json(updatedPost)
 } catch (error) {
     res.send("something wrong please check your internet")
 }
    
+}
+
+export const deletePost = async (req, res)=>{
+    // const {id : _id } = req.params;
+    const {id } = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).send("no post with this id")
+        }
+        try {
+        const deletedPost =  await postMessage.findOneAndDelete({_id: id})
+           if (!deletedPost) {
+            return res.status(404).send("Post not found");
+        }
+        res.json({ message: "Post deleted successfully"});
+        } catch (error) {
+            res.status(500).send("Something went wrong, please check your internet");
+        }
 }
